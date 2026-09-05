@@ -1,0 +1,233 @@
+/* ==========================================================================
+   PODCRAZE NEO-BRUTALISM POP DESIGN SYSTEM
+   Exact recreation from user screenshot:
+   - Vivid Royal Purple (#6846FD / #6A48FF)
+   - Punchy Pastel Yellow (#FFDF34)
+   - Bubblegum Pink (#FFAEF0 / #FFB8EE)
+   - Warm Cream (#FAF8F4 / #FDFBF7)
+   - Tangy Orange (#FF7728)
+   - Solid Ink Black (#0F0F12)
+   - High-contrast thick strokes (2px - 3.5px solid #000) & hard drop shadows
+   ========================================================================== */
+
+:root {
+  /* Core Theme Colors from Screenshot */
+  --c-purple: #6949FE;
+  --c-purple-dark: #5535E8;
+  --c-purple-light: #7E62FF;
+  
+  --c-yellow: #FFDF34;
+  --c-yellow-light: #FFE765;
+  --c-yellow-dark: #E6C517;
+
+  --c-pink: #FFAEF0;
+  --c-pink-light: #FFC4F4;
+  --c-pink-dark: #E891D8;
+
+  --c-cream: #FAF8F4;
+  --c-cream-card: #FFFFFF;
+  --c-cream-darker: #F1ECE3;
+
+  --c-orange: #FF7728;
+  --c-orange-light: #FF904D;
+  
+  --c-cyan: #3CE0E5;
+  --c-black: #0E0F14;
+  --c-white: #FFFFFF;
+  --c-text-muted: #6B7280;
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  /* Neo-Brutalist Border & Shadows */
+  --border-thick: 2.5px solid #0E0F14;
+  --border-heavy: 3px solid #0E0F14;
+  --border-card: 2px solid #0E0F14;
+
+  --shadow-sm: 2px 2px 0px #0E0F14;
+  --shadow-md: 4px 4px 0px #0E0F14;
+  --shadow-lg: 6px 6px 0px #0E0F14;
+  --shadow-xl: 8px 8px 0px #0E0F14;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+
+  --transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--c-cream);
+  color: var(--c-black);
+  font-family: var(--font-main);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--c-black);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Neo-Brutalist Buttons */
+.btn-neo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 26px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.btn-neo:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-neo:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-neo-yellow {
+  background-color: var(--c-yellow);
+  color: var(--c-black);
+}
+
+.btn-neo-white {
+  background-color: var(--c-white);
+  color: var(--c-black);
+}
+
+.btn-neo-pink {
+  background-color: var(--c-pink);
+  color: var(--c-black);
+}
+
+.btn-neo-purple {
+  background-color: var(--c-purple);
+  color: var(--c-white);
+}
+
+/* Cards & Panels */
+.card-neo {
+  background: var(--c-white);
+  border: var(--border-thick);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card-neo-yellow {
+  background: var(--c-yellow);
+  border: var(--border-heavy);
+}
+
+.card-neo-pink {
+  background: var(--c-pink);
+  border: var(--border-heavy);
+}
+
+.card-neo-purple {
+  background: var(--c-purple);
+  border: var(--border-heavy);
+  color: var(--c-white);
+}
+
+/* Scalloped / Starburst Badge (From Screenshot) */
+.starburst-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background-color: var(--c-orange);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: 14px;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  transform: rotate(-6deg);
+  position: relative;
+}
+
+.starburst-badge.purple {
+  background-color: var(--c-purple);
+  border-color: #0E0F14;
+}
+
+/* Pills and Badges */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  border: 2px solid #0E0F14;
+  background: var(--c-white);
+  box-shadow: 2px 2px 0px #0E0F14;
+}
+
+.badge-pill-yellow {
+  background: var(--c-yellow);
+}
+
+.badge-pill-pink {
+  background: var(--c-pink);
+}
+
+/* Animation utilities */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: floatGentle 3s ease-in-out infinite;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
