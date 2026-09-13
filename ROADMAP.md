@@ -1,13 +1,13 @@
-# 🎧 Roadmap Pengembangan: Audiophile Blind Test & IEM Recommender
+# 🎧 Roadmap Pengembangan: KupingTune — Blind Test & IEM Recommender
 
 > **Konsep Proyek:**  
-> Aplikasi web interaktif Single Page Application (SPA) berbasis **Vite + React** yang memberikan pengalaman **A/B Blind Preference Test** objektif tanpa pengaruh brand atau harga, menyusun **Personal Sound Profile (Radar Chart & Persona Badge)**, dan merekomendasikan **IEM Budget Populer (< Rp 1 Juta)** yang paling sesuai dengan selera telinga pengguna.
+> Aplikasi web interaktif Single Page Application (SPA) berbasis **Vite + React** yang memberikan pengalaman **A/B Blind Preference Test** objektif tanpa pengaruh brand atau harga, menyusun **Personal Sound Profile (Radar Chart & Persona Badge)**, dan merekomendasikan **IEM Budget Populer (< Rp 1 Juta)** yang paling sesuai dengan selera kuping pengguna.
 
 ---
 
-## 🎨 Desain Sistem: PodCraze Neo-Brutalism Pop (Sesuai Screenshot Referensi)
+## 🎨 Desain Sistem: KupingTune Neo-Brutalism Pop
 
-Desain antarmuka dirombak total dan diselaraskan secara presisi dengan screenshot **PodCraze (Peterdraw Studio)**:
+Desain antarmuka mengadopsi estetika **Neo-Brutalism Pop**:
 - **Hero & Header:** Vivid Royal Purple (`#6949FE`) dengan teks putih tebal.
 - **Card Utama:** Pastel Punchy Yellow (`#FFDF34`) dengan sudut membulat (`border-radius: 28px - 32px`).
 - **Stats Bar:** Bubblegum Pink Box (`#FFAEF0`).
@@ -98,6 +98,18 @@ Desain antarmuka dirombak total dan diselaraskan secara presisi dengan screensho
   - Penjelasan khusus *"Kenapa Ini Pas Denganmu"*.
   - Filter rentang harga (&lt; 300rb, 300rb - 600rb, &gt; 600rb) dan sorting.
   - Direct link pencarian ke Tokopedia.
+
+### [x] Fase 6: Fitur Hybrid Audio Selector (Preset Kurasi + Upload File Lokal 100% Memory)
+- [x] **Pustaka Preset Bawaan (Multi-Genre)**:
+  - *Studio Multi-Stem Groove (112 BPM)*: All-Rounder (Kick, bass, keys, vokal).
+  - *Acoustic & Warm Vocal (92 BPM)*: Uji vokal intim & treble simbal halus.
+  - *Cyber Bass & Electro Beats (124 BPM)*: Uji sub-bass 808 & resolusi sparkle.
+- [x] **Upload File Lokal (100% Client-Side In-Memory)**:
+  - Drag & Drop audio file (`.mp3`, `.wav`, `.flac`, `.m4a`, `.ogg`, `.aac`).
+  - Di-decode langsung via Web Audio API `decodeAudioData()` ke RAM browser pengguna.
+  - **Zero Server Upload**: 100% privat, file tidak pernah diunggah ke server mana pun.
+- [x] Komponen `TrackSelectorModal.jsx`: Modal Neo-Brutalis untuk memilih preset lagu atau drag & drop file lagu sendiri.
+- [x] Indikator status trek aktif di `BlindArena.jsx` dengan tombol cepat *"Ganti / Upload Lagu"*.
 
 ---
 

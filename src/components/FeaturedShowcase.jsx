@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Play, ExternalLink, Sparkles, Mic, DollarSign, Headphones } from 'lucide-react';
-import { BUDGET_IEMS } from '../data/iemDatabase';
+import { ArrowLeft, ArrowRight, Play, Mic, DollarSign, Headphones } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 export default function FeaturedShowcase({ onStartTest }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,27 +52,34 @@ export default function FeaturedShowcase({ onStartTest }) {
     <section style={{ padding: '60px 0 80px', background: 'var(--c-cream)' }}>
       <div className="container">
         
-        {/* Section Heading matching screenshot "Hottest Show" */}
-        <h2 style={{
-          textAlign: 'center',
-          fontSize: 'clamp(2rem, 4vw, 2.8rem)',
-          fontWeight: 900,
-          letterSpacing: '-0.035em',
-          marginBottom: '40px',
-          color: '#0E0F14'
-        }}>
-          Hottest IEM Showcase
-        </h2>
+        {/* Section Heading with ScrollReveal */}
+        <ScrollReveal animation="animate-enter-fade-down">
+          <h2 
+            style={{
+              textAlign: 'center',
+              fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+              fontWeight: 900,
+              letterSpacing: '-0.035em',
+              marginBottom: '40px',
+              color: '#0E0F14'
+            }}
+          >
+            Hottest IEM Showcase
+          </h2>
+        </ScrollReveal>
 
-        {/* Carousel Container with Arrows matching screenshot */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '24px',
-          maxWidth: '960px',
-          margin: '0 auto'
-        }}>
+        {/* Carousel Container with ScrollReveal */}
+        <ScrollReveal animation="animate-enter-scale-up" delay="delay-100">
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '24px',
+              maxWidth: '960px',
+              margin: '0 auto'
+            }}
+          >
           
           {/* Left Arrow Button matching screenshot */}
           <button
@@ -96,22 +103,26 @@ export default function FeaturedShowcase({ onStartTest }) {
           </button>
 
           {/* Big Featured Yellow Card matching screenshot */}
-          <div style={{
-            background: 'var(--c-yellow)',
-            border: '3px solid #0E0F14',
-            borderRadius: '28px',
-            boxShadow: '8px 8px 0px #0E0F14',
-            padding: '32px',
-            width: '100%',
-            position: 'relative',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '32px',
-            alignItems: 'center'
-          }}>
+          <div 
+            key={current.id}
+            className="animate-carousel-switch"
+            style={{
+              background: 'var(--c-yellow)',
+              border: '3px solid #0E0F14',
+              borderRadius: '28px',
+              boxShadow: '8px 8px 0px #0E0F14',
+              padding: '32px',
+              width: '100%',
+              position: 'relative',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '32px',
+              alignItems: 'center'
+            }}
+          >
             
             {/* Starburst Rank Badge on Top Left matching screenshot */}
-            <div style={{
+            <div className="animate-enter-pop delay-100" style={{
               position: 'absolute',
               top: '-16px',
               left: '-16px',
@@ -302,6 +313,7 @@ export default function FeaturedShowcase({ onStartTest }) {
           </button>
 
         </div>
+        </ScrollReveal>
 
       </div>
     </section>

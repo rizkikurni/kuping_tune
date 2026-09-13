@@ -1,5 +1,6 @@
 /**
  * Personal Sound Personas / Archetypes
+ * Icons mapped to Lucide / Font-Awesome style SVG icons
  */
 
 export const ARCHETYPES = {
@@ -7,7 +8,7 @@ export const ARCHETYPES = {
     id: 'vocal_purist',
     name: 'The Vocal Purist',
     tagline: 'Pecinta Vokal Intim & Timbre Natural',
-    emoji: '🎙️',
+    icon: 'Mic',
     color: '#38BDF8',
     description: 'Kamu sangat memprioritaskan artikulasi vokal yang jelas, maju di depan panggung musik, dan berbobot alami. Treble yang menusuk kuping adalah musuh terbesarmu.',
     preferredGenres: ['Akustik & Pop Ballad', 'Jazz Vocal', 'Indie Folk', 'Podcast & Live Performance'],
@@ -17,7 +18,7 @@ export const ARCHETYPES = {
     id: 'warmth_seeker',
     name: 'The Warmth Seeker',
     tagline: 'Penyuka Bass Empuk & Nada Santai (Anti-Fatigue)',
-    emoji: '☕',
+    icon: 'Coffee',
     color: '#C6F432',
     description: 'Bagimu musik harus dinikmati berjam-jam tanpa membuat kuping lelah. Kamu menyukai bass yang tebal dan hangat dengan transisi midrange yang mulus.',
     preferredGenres: ['R&B', 'Lo-fi Beats', 'Classic Rock', 'Soul & Reggae'],
@@ -27,7 +28,7 @@ export const ARCHETYPES = {
     id: 'detail_hunter',
     name: 'The Detail Hunter',
     tagline: 'Pengejar Mikro-Detail & Soundstage Megah',
-    emoji: '🔍',
+    icon: 'Search',
     color: '#A78BFA',
     description: 'Telingamu sangat sensitif terhadap kilau simbal, desis petikan senar, dan pemisahan instrumen. Kamu menyukai panggung suara yang lebar dan transparan.',
     preferredGenres: ['Orchestra & Klasik', 'Progressive Rock', 'Soundtrack Film & Anime', 'Acoustic Fingerstyle'],
@@ -37,7 +38,7 @@ export const ARCHETYPES = {
     id: 'energy_v',
     name: 'The Energy V-Shaper',
     tagline: 'Penikmat Dentuman Bertenaga & Ritme Seru',
-    emoji: '⚡',
+    icon: 'Zap',
     color: '#F59E0B',
     description: 'Kamu mencari keseruan dan dinamika musik! Bass menggelegar dipadukan treble yang gemerincing membuat setiap lagu terasa hidup dan memompa adrenalin.',
     preferredGenres: ['EDM & Trap', 'Modern Hip-Hop', 'Hard Rock & Metal', 'K-Pop High Energy'],
@@ -47,7 +48,7 @@ export const ARCHETYPES = {
     id: 'harman_balancer',
     name: 'The Harman Balancer',
     tagline: 'Pencari Harmoni Seimbang & Akurasi Tonal',
-    emoji: '⚖️',
+    icon: 'Scale',
     color: '#10B981',
     description: 'Seleramu sangat matang dan seimbang. Kamu menyukai bass yang bersih tanpa menutupi vokal, serta treble yang cukup terang tanpa rasa menusuk. Serba pas di semua lagu.',
     preferredGenres: ['Semua Genre (All-Rounder)', 'Pop Top 40', 'Rock Alternatif', 'Electronic Pop'],

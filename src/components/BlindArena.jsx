@@ -3,7 +3,8 @@ import { ROUND_DEFINITIONS } from '../audio/roundFilters';
 import { audioEngine } from '../audio/audioEngine';
 import WaveformVisualizer from './WaveformVisualizer';
 import AudioControls from './AudioControls';
-import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react';
+import TrackSelectorModal from './TrackSelectorModal';
+import { ArrowLeft, ArrowRight, Check, Sparkles, Music, Sliders } from 'lucide-react';
 
 export default function BlindArena({ onCompleteTest, onExit }) {
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
@@ -11,17 +12,24 @@ export default function BlindArena({ onCompleteTest, onExit }) {
   const [activeSample, setActiveSample] = useState('A');
   const [answers, setAnswers] = useState({});
   const [selectedChoice, setSelectedChoice] = useState(null);
+  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(audioEngine.currentTrack);
+  const [isAudioLoading, setIsAudioLoading] = useState(!audioEngine.isReady);
 
   const currentRound = ROUND_DEFINITIONS[currentRoundIndex];
   const totalRounds = ROUND_DEFINITIONS.length;
   const progressPercent = ((currentRoundIndex + 1) / totalRounds) * 100;
 
+  const hasAutoStartedRef = React.useRef(false);
+
   useEffect(() => {
     audioEngine.setRound(currentRoundIndex);
     setSelectedChoice(answers[currentRound.id] || null);
 
-    if (!audioEngine.isPlaying) {
-      audioEngine.play();
+    // If already playing, keep playing new round filters. If initial mount and ready, play.
+    if (!hasAutoStartedRef.current && audioEngine.isReady && !audioEngine.isPlaying) {
+      hasAutoStartedRef.current = true;
+      audioEngine.play().catch(() => {});
     }
   }, [currentRoundIndex]);
 
@@ -33,6 +41,19 @@ export default function BlindArena({ onCompleteTest, onExit }) {
       }
       if (state.activeSample) {
         setActiveSample(state.activeSample);
+      }
+      if (state.currentTrack) {
+        setCurrentTrack(state.currentTrack);
+      }
+      if (typeof state.isLoading === 'boolean') {
+        setIsAudioLoading(state.isLoading);
+      }
+      if (typeof state.isReady === 'boolean') {
+        setIsAudioLoading(!state.isReady);
+        if (state.isReady && !audioEngine.isPlaying && !hasAutoStartedRef.current) {
+          hasAutoStartedRef.current = true;
+          audioEngine.play().catch(() => {});
+        }
       }
     });
 
@@ -78,7 +99,7 @@ export default function BlindArena({ onCompleteTest, onExit }) {
       <div className="container" style={{ maxWidth: '880px' }}>
         
         {/* Top Navigation & Progress Bar */}
-        <div style={{ marginBottom: '32px' }}>
+        <div className="animate-enter-fade-down" style={{ marginBottom: '32px' }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -131,18 +152,22 @@ export default function BlindArena({ onCompleteTest, onExit }) {
         </div>
 
         {/* The Main Arena Card in Neo-Brutalist Pop Style */}
-        <div style={{
-          background: '#FFFFFF',
-          border: '3px solid #0E0F14',
-          borderRadius: '28px',
-          boxShadow: '8px 8px 0px #0E0F14',
-          padding: '36px',
-          position: 'relative',
-          marginBottom: '32px'
-        }}>
+        <div 
+          key={currentRound.id}
+          className="animate-enter-scale-up"
+          style={{
+            background: '#FFFFFF',
+            border: '3px solid #0E0F14',
+            borderRadius: '28px',
+            boxShadow: '8px 8px 0px #0E0F14',
+            padding: '36px',
+            position: 'relative',
+            marginBottom: '32px'
+          }}
+        >
           
           {/* Starburst Round Number Badge matching screenshot */}
-          <div style={{
+          <div className="animate-enter-pop delay-100" style={{
             position: 'absolute',
             top: '-18px',
             left: '-18px',
@@ -165,7 +190,7 @@ export default function BlindArena({ onCompleteTest, onExit }) {
           </div>
 
           {/* Round Header & Instructions */}
-          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <div className="animate-enter-fade-down delay-100" style={{ textAlign: 'center', marginBottom: '28px' }}>
             <div style={{
               display: 'inline-block',
               background: 'var(--c-yellow)',
@@ -188,39 +213,163 @@ export default function BlindArena({ onCompleteTest, onExit }) {
             </p>
           </div>
 
-          {/* Spectrum Analyzer Box */}
-          <div style={{ marginBottom: '24px' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '8px',
-              fontSize: '0.78rem',
-              fontWeight: 800
-            }}>
-              <span style={{ color: 'var(--c-text-muted)' }}>LIVE AUDIO SPECTRUM</span>
-              <span style={{
-                background: activeSample === 'A' ? 'var(--c-yellow)' : 'var(--c-pink)',
+          {/* Hybrid Track Selector Trigger Bar */}
+          <div className="animate-enter-fade-up delay-150" style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: '#FFFFFF',
+            border: '2px solid #0E0F14',
+            borderRadius: '16px',
+            padding: '10px 16px',
+            boxShadow: '3px 3px 0px #0E0F14',
+            marginBottom: '20px',
+            flexWrap: 'wrap',
+            gap: '12px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '8px',
+                background: currentTrack?.isCustom ? 'var(--c-pink)' : 'var(--c-yellow)',
                 border: '1.5px solid #0E0F14',
-                padding: '2px 8px',
-                borderRadius: '6px'
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}>
-                MENDENGARKAN: SAMPLE {activeSample}
-              </span>
+                <Music size={16} color="#0E0F14" />
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 800, color: 'var(--c-text-muted)' }}>
+                  {currentTrack?.isCustom ? 'FILE LOKAL AKTIF' : 'PRESET AUDIO AKTIF'}
+                </div>
+                <div style={{ fontSize: '0.95rem', fontWeight: 900, color: '#0E0F14' }}>
+                  {currentTrack?.title || 'Studio Multi-Stem Groove'}
+                </div>
+              </div>
             </div>
 
-            <WaveformVisualizer isPlaying={isPlaying} activeSample={activeSample} />
+            <button
+              id="btn-choose-track"
+              type="button"
+              onClick={() => setIsTrackModalOpen(true)}
+              className="btn-neo btn-neo-white"
+              style={{
+                padding: '6px 16px',
+                fontSize: '0.82rem'
+              }}
+            >
+              <span>Ganti / Upload Lagu</span>
+              <Sliders size={14} />
+            </button>
           </div>
 
-          {/* Audio Controls */}
-          <div style={{ marginBottom: '36px' }}>
-            <AudioControls
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-              activeSample={activeSample}
-              setActiveSample={setActiveSample}
-            />
-          </div>
+          {/* Visualizer & Controls or Neo-Brutalism Loading State */}
+          {isAudioLoading ? (
+            <div style={{
+              background: '#FFFFFF',
+              border: '2.5px solid #0E0F14',
+              borderRadius: '24px',
+              boxShadow: '4px 4px 0px #0E0F14',
+              padding: '36px 24px',
+              textAlign: 'center',
+              marginBottom: '32px',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              {/* Animated Top Shimmer Rainbow Bar */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '6px',
+                background: 'linear-gradient(90deg, #6949FE, #FFDF34, #FFAEF0, #FF7728, #6949FE)',
+                backgroundSize: '200% 100%',
+                animation: 'neoShimmerBar 2s linear infinite'
+              }} />
+
+              {/* Bouncing Equalizer Bars with Pop Colors */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+                gap: '8px',
+                height: '52px',
+                marginBottom: '18px'
+              }}>
+                <div className="neo-eq-bar" style={{ background: 'var(--c-purple)', animationDelay: '0.0s' }} />
+                <div className="neo-eq-bar" style={{ background: 'var(--c-yellow)', animationDelay: '0.18s' }} />
+                <div className="neo-eq-bar" style={{ background: 'var(--c-pink)', animationDelay: '0.36s' }} />
+                <div className="neo-eq-bar" style={{ background: 'var(--c-orange)', animationDelay: '0.54s' }} />
+                <div className="neo-eq-bar" style={{ background: 'var(--c-purple)', animationDelay: '0.24s' }} />
+                <div className="neo-eq-bar" style={{ background: 'var(--c-yellow)', animationDelay: '0.42s' }} />
+                <div className="neo-eq-bar" style={{ background: 'var(--c-pink)', animationDelay: '0.12s' }} />
+              </div>
+
+              {/* Status Pill Badge */}
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'var(--c-yellow)',
+                border: '2px solid #0E0F14',
+                borderRadius: '999px',
+                padding: '4px 16px',
+                fontWeight: 900,
+                fontSize: '0.78rem',
+                boxShadow: '2px 2px 0px #0E0F14',
+                marginBottom: '10px'
+              }}>
+                <Sparkles size={14} color="#0E0F14" />
+                <span>MEMPROSES AUDIO DI MEMORI LOKAL BROWSER</span>
+              </div>
+
+              <h3 style={{ fontSize: '1.22rem', fontWeight: 900, color: '#0E0F14', marginBottom: '6px' }}>
+                Menyiapkan Mesin Audio DSP 44.1kHz...
+              </h3>
+              <p style={{ color: 'var(--c-text-muted)', fontSize: '0.85rem', fontWeight: 600, maxWidth: '460px', margin: '0 auto' }}>
+                Merender sampel referensi lossless dan konfigurasi Biquad filter di background thread. Pemutar musik akan langsung aktif otomatis.
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Spectrum Analyzer Box */}
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '8px',
+                  fontSize: '0.78rem',
+                  fontWeight: 800
+                }}>
+                  <span style={{ color: 'var(--c-text-muted)' }}>LIVE AUDIO SPECTRUM</span>
+                  <span style={{
+                    background: activeSample === 'A' ? 'var(--c-yellow)' : 'var(--c-pink)',
+                    border: '1.5px solid #0E0F14',
+                    padding: '2px 8px',
+                    borderRadius: '6px'
+                  }}>
+                    MENDENGARKAN: SAMPLE {activeSample}
+                  </span>
+                </div>
+
+                <WaveformVisualizer isPlaying={isPlaying} activeSample={activeSample} />
+              </div>
+
+              {/* Audio Controls */}
+              <div style={{ marginBottom: '36px' }}>
+                <AudioControls
+                  isPlaying={isPlaying}
+                  setIsPlaying={setIsPlaying}
+                  activeSample={activeSample}
+                  setActiveSample={setActiveSample}
+                />
+              </div>
+            </>
+          )}
 
           {/* Decision Section */}
           <div style={{
@@ -247,6 +396,7 @@ export default function BlindArena({ onCompleteTest, onExit }) {
                 id="choice-sample-a"
                 type="button"
                 onClick={() => handleSelectChoice('A')}
+                className="animate-enter-fade-up delay-200"
                 style={{
                   padding: '20px',
                   textAlign: 'left',
@@ -300,6 +450,7 @@ export default function BlindArena({ onCompleteTest, onExit }) {
                 id="choice-sample-b"
                 type="button"
                 onClick={() => handleSelectChoice('B')}
+                className="animate-enter-fade-up delay-250"
                 style={{
                   padding: '20px',
                   textAlign: 'left',
@@ -353,6 +504,7 @@ export default function BlindArena({ onCompleteTest, onExit }) {
                 id="choice-sample-indifferent"
                 type="button"
                 onClick={() => handleSelectChoice('indifferent')}
+                className="animate-enter-fade-up delay-300"
                 style={{
                   padding: '20px',
                   textAlign: 'left',
@@ -403,7 +555,7 @@ export default function BlindArena({ onCompleteTest, onExit }) {
             </div>
 
             {/* Next Round Button */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="animate-enter-scale-up delay-350" style={{ display: 'flex', justifyContent: 'center' }}>
               <button
                 id="btn-next-round"
                 type="button"
@@ -425,6 +577,13 @@ export default function BlindArena({ onCompleteTest, onExit }) {
           </div>
 
         </div>
+
+        {/* Track Selector Modal */}
+        <TrackSelectorModal
+          isOpen={isTrackModalOpen}
+          onClose={() => setIsTrackModalOpen(false)}
+          currentTrack={currentTrack}
+        />
 
       </div>
     </section>

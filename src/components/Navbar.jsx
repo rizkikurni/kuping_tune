@@ -1,12 +1,22 @@
 import React from 'react';
-import { Headphones, Sparkles } from 'lucide-react';
+import KupingTuneLogo from './KupingTuneLogo';
+import { Sparkles, Headphones } from 'lucide-react';
 
 export default function Navbar({ onStartTest, onOpenCatalog, activeView }) {
+  const isHeroActive = activeView === 'hero';
+  const isTestActive = activeView === 'test' || activeView === 'result';
+  const isCatalogActive = activeView === 'catalog';
+
   return (
     <nav style={{
       background: 'var(--c-purple)',
-      padding: '20px 0',
-      color: '#FFFFFF'
+      padding: '16px 0',
+      color: '#FFFFFF',
+      borderBottom: '3px solid #0E0F14',
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      boxShadow: '0 4px 0px rgba(14, 15, 20, 0.15)'
     }}>
       <div className="container" style={{
         display: 'flex',
@@ -15,100 +25,138 @@ export default function Navbar({ onStartTest, onOpenCatalog, activeView }) {
         flexWrap: 'wrap',
         gap: '16px'
       }}>
-        {/* Brand Logo matching screenshot: Orange square + PodCraze. */}
-        <div 
-          onClick={() => onStartTest('hero')}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            cursor: 'pointer'
-          }}
-        >
-          <div style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '12px',
-            background: 'var(--c-orange)',
-            border: '2px solid #0E0F14',
-            boxShadow: '2px 2px 0px #0E0F14',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <Headphones size={22} color="#FFFFFF" strokeWidth={2.6} />
-          </div>
-          <span style={{
-            fontWeight: 800,
-            fontSize: '1.45rem',
-            letterSpacing: '-0.03em',
-            color: '#FFFFFF'
-          }}>
-            PodCraze<span style={{ color: 'var(--c-orange)' }}>.</span>
-          </span>
-        </div>
+        {/* Brand Logo with KupingTune Custom Iconic Badge */}
+        <KupingTuneLogo onClick={() => onStartTest('hero')} />
 
-        {/* Center Menu with Orange Dot Separators (from screenshot) */}
+        {/* Center Menu with Yellow Indicator for the Active Page */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '16px',
-          fontWeight: 600,
+          gap: '8px',
+          fontWeight: 700,
           fontSize: '0.92rem'
         }} className="nav-links-desktop">
-          <span 
+          {/* Beranda / Home Link */}
+          <button
+            type="button"
             onClick={() => onStartTest('hero')}
-            style={{ cursor: 'pointer', opacity: activeView === 'hero' ? 1 : 0.85 }}
+            className={isHeroActive ? 'nav-pill-active' : ''}
+            style={{
+              background: isHeroActive ? 'var(--c-yellow)' : 'transparent',
+              color: isHeroActive ? '#0E0F14' : '#FFFFFF',
+              border: isHeroActive ? '2px solid #0E0F14' : '2px solid transparent',
+              borderRadius: '999px',
+              padding: '7px 18px',
+              cursor: 'pointer',
+              fontSize: '0.92rem',
+              fontWeight: isHeroActive ? 900 : 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.18s ease'
+            }}
           >
-            About
-          </span>
-          <span style={{ color: 'var(--c-orange)', fontSize: '0.8rem' }}>●</span>
-          <span 
+            {isHeroActive && <span className="live-pulse-dot" style={{ background: 'var(--c-orange)' }} />}
+            <span>Beranda</span>
+          </button>
+
+
+          {/* Blind Test Link (Highlighted in Yellow when active!) */}
+          <button
+            type="button"
             onClick={() => onStartTest('test')}
-            style={{ cursor: 'pointer', opacity: activeView === 'test' ? 1 : 0.85 }}
+            className={isTestActive ? 'nav-pill-active' : ''}
+            style={{
+              background: isTestActive ? 'var(--c-yellow)' : 'transparent',
+              color: isTestActive ? '#0E0F14' : '#FFFFFF',
+              border: isTestActive ? '2px solid #0E0F14' : '2px solid transparent',
+              borderRadius: '999px',
+              padding: '7px 18px',
+              cursor: 'pointer',
+              fontSize: '0.92rem',
+              fontWeight: isTestActive ? 900 : 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.18s ease'
+            }}
           >
-            Blind Test
-          </span>
-          <span style={{ color: 'var(--c-orange)', fontSize: '0.8rem' }}>●</span>
-          <span 
+            {isTestActive && <span className="live-pulse-dot" />}
+            <span>Blind Test</span>
+          </button>
+
+
+          {/* Katalog IEM Link (Highlighted in Yellow when active!) */}
+          <button
+            type="button"
             onClick={onOpenCatalog}
-            style={{ cursor: 'pointer', opacity: activeView === 'catalog' ? 1 : 0.85 }}
+            className={isCatalogActive ? 'nav-pill-active' : ''}
+            style={{
+              background: isCatalogActive ? 'var(--c-yellow)' : 'transparent',
+              color: isCatalogActive ? '#0E0F14' : '#FFFFFF',
+              border: isCatalogActive ? '2px solid #0E0F14' : '2px solid transparent',
+              borderRadius: '999px',
+              padding: '7px 18px',
+              cursor: 'pointer',
+              fontSize: '0.92rem',
+              fontWeight: isCatalogActive ? 900 : 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.18s ease'
+            }}
           >
-            Katalog IEM
-          </span>
-          <span style={{ color: 'var(--c-orange)', fontSize: '0.8rem' }}>●</span>
-          <span style={{ opacity: 0.85, cursor: 'pointer' }}>FAQ</span>
-          <span style={{ color: 'var(--c-orange)', fontSize: '0.8rem' }}>●</span>
-          <span style={{ opacity: 0.85, cursor: 'pointer' }}>Blog</span>
+            {isCatalogActive && <span className="live-pulse-dot" style={{ background: 'var(--c-purple)' }} />}
+            <span>Katalog IEM</span>
+          </button>
         </div>
 
-        {/* Right Auth / Action Buttons matching screenshot */}
+        {/* Right Action Buttons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Home Button */}
           <button
+            type="button"
             onClick={() => onStartTest('hero')}
             style={{
-              background: 'transparent',
-              border: '1.5px solid rgba(255, 255, 255, 0.4)',
-              color: '#FFFFFF',
+              background: isHeroActive ? 'var(--c-yellow)' : 'transparent',
+              border: isHeroActive ? '2px solid #0E0F14' : '1.5px solid rgba(255, 255, 255, 0.45)',
+              color: isHeroActive ? '#0E0F14' : '#FFFFFF',
+              boxShadow: isHeroActive ? '2px 2px 0px #0E0F14' : 'none',
               borderRadius: 'var(--radius-pill)',
               padding: '8px 20px',
               fontSize: '0.88rem',
-              fontWeight: 700,
-              cursor: 'pointer'
+              fontWeight: 800,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease'
             }}
           >
             Home
           </button>
 
+          {/* Start Test / Active Session Button */}
           <button
+            type="button"
             onClick={() => onStartTest('test')}
-            className="btn-neo btn-neo-white"
+            className={isTestActive ? "btn-neo btn-neo-yellow" : "btn-neo btn-neo-white"}
             style={{
               padding: '8px 22px',
-              fontSize: '0.88rem'
+              fontSize: '0.88rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
             }}
           >
-            <span>{activeView === 'test' ? 'Sesi Aktif' : 'Mulai Test'}</span>
+            {isTestActive ? (
+              <>
+                <span className="live-pulse-dot" />
+                <span>Sesi Aktif</span>
+              </>
+            ) : (
+              <>
+                <Headphones size={15} />
+                <span>Mulai Test</span>
+              </>
+            )}
           </button>
         </div>
       </div>

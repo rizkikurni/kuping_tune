@@ -1,19 +1,31 @@
 import React from 'react';
 import RadarChart from './RadarChart';
-import { RotateCcw, ArrowDown, Award, Sparkles, Music, CheckCircle2 } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
+import { RotateCcw, ArrowDown, Sparkles, Mic, Coffee, Search, Zap, Scale, Trophy } from 'lucide-react';
+
+const ICON_MAP = {
+  Mic,
+  Coffee,
+  Search,
+  Zap,
+  Scale
+};
 
 export default function ResultProfile({ resultData, onRetest, onScrollToRecs }) {
   const { userVector, archetype, labels, recommendations } = resultData;
   const topMatch = recommendations[0];
+  const PersonaIcon = ICON_MAP[archetype.icon] || Sparkles;
 
   return (
     <section style={{ padding: '50px 0 80px', background: 'var(--c-cream)' }}>
       <div className="container" style={{ maxWidth: '960px' }}>
         
         {/* Header Badge & Title */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <div className="animate-enter-fade-down" style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{
-            display: 'inline-block',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
             background: 'var(--c-pink)',
             border: '2px solid #0E0F14',
             borderRadius: '999px',
@@ -23,7 +35,8 @@ export default function ResultProfile({ resultData, onRetest, onScrollToRecs }) 
             boxShadow: '3px 3px 0px #0E0F14',
             marginBottom: '16px'
           }}>
-            🎉 HASIL BLIND TEST LENGKAP
+            <Trophy size={16} color="#0E0F14" strokeWidth={2.6} />
+            <span>HASIL BLIND TEST LENGKAP</span>
           </div>
           <h1 style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', fontWeight: 900, marginBottom: '12px' }}>
             Personal Sound Profile-mu
@@ -42,19 +55,22 @@ export default function ResultProfile({ resultData, onRetest, onScrollToRecs }) 
         }}>
           
           {/* Left Panel: Big Yellow Persona Card (from screenshot style) */}
-          <div style={{
-            background: 'var(--c-yellow)',
-            border: '3px solid #0E0F14',
-            borderRadius: '28px',
-            boxShadow: '8px 8px 0px #0E0F14',
-            padding: '36px',
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
+          <div 
+            className="animate-enter-scale-up delay-150"
+            style={{
+              background: 'var(--c-yellow)',
+              border: '3px solid #0E0F14',
+              borderRadius: '28px',
+              boxShadow: '8px 8px 0px #0E0F14',
+              padding: '36px',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}
+          >
             {/* Top Starburst Badge with Emoji */}
-            <div style={{
+            <div className="animate-enter-pop delay-250" style={{
               position: 'absolute',
               top: '-18px',
               left: '-18px',
@@ -70,7 +86,7 @@ export default function ResultProfile({ resultData, onRetest, onScrollToRecs }) 
               fontSize: '1.6rem',
               transform: 'rotate(-8deg)'
             }}>
-              {archetype.emoji}
+              <PersonaIcon size={28} color="#FFFFFF" strokeWidth={2.4} />
             </div>
 
             <div>
@@ -164,17 +180,20 @@ export default function ResultProfile({ resultData, onRetest, onScrollToRecs }) 
           </div>
 
           {/* Right Panel: Radar Chart */}
-          <div style={{
-            background: 'var(--c-purple)',
-            border: '3px solid #0E0F14',
-            borderRadius: '28px',
-            boxShadow: '8px 8px 0px #0E0F14',
-            padding: '36px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
+          <div 
+            className="animate-enter-scale-up delay-200"
+            style={{
+              background: 'var(--c-purple)',
+              border: '3px solid #0E0F14',
+              borderRadius: '28px',
+              boxShadow: '8px 8px 0px #0E0F14',
+              padding: '36px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
             <div style={{ textAlign: 'center', marginBottom: '16px', color: '#FFFFFF' }}>
               <div style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em' }}>
                 SPIDER ACOUSTIC GRAPH
@@ -190,122 +209,130 @@ export default function ResultProfile({ resultData, onRetest, onScrollToRecs }) 
         </div>
 
         {/* 5 Specific Preference Cards */}
-        <div style={{
-          background: '#FFFFFF',
-          border: '3px solid #0E0F14',
-          borderRadius: '24px',
-          boxShadow: '6px 6px 0px #0E0F14',
-          padding: '32px',
-          marginBottom: '40px'
-        }}>
-          <h3 style={{ fontSize: '1.35rem', fontWeight: 900, marginBottom: '20px', textAlign: 'center' }}>
-            Rincian 5 Parameter Telingamu
-          </h3>
+        <ScrollReveal animation="animate-enter-fade-up">
+          <div 
+            style={{
+              background: '#FFFFFF',
+              border: '3px solid #0E0F14',
+              borderRadius: '24px',
+              boxShadow: '6px 6px 0px #0E0F14',
+              padding: '32px',
+              marginBottom: '40px'
+            }}
+          >
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 900, marginBottom: '20px', textAlign: 'center' }}>
+              Rincian 5 Parameter Telingamu
+            </h3>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: '16px'
-          }}>
-            {/* Bass */}
             <div style={{
-              background: 'var(--c-yellow)',
-              border: '2px solid #0E0F14',
-              borderRadius: '16px',
-              padding: '16px',
-              boxShadow: '3px 3px 0px #0E0F14',
-              textAlign: 'center'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+              gap: '16px'
             }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>BASS PREFERENCE</div>
-              <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.bass}</div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.bass}% Power</div>
-            </div>
+              {/* Bass */}
+              <div className="animate-enter-pop delay-150" style={{
+                background: 'var(--c-yellow)',
+                border: '2px solid #0E0F14',
+                borderRadius: '16px',
+                padding: '16px',
+                boxShadow: '3px 3px 0px #0E0F14',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>BASS PREFERENCE</div>
+                <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.bass}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.bass}% Power</div>
+              </div>
 
-            {/* Mid */}
-            <div style={{
-              background: 'var(--c-pink)',
-              border: '2px solid #0E0F14',
-              borderRadius: '16px',
-              padding: '16px',
-              boxShadow: '3px 3px 0px #0E0F14',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>MID PREFERENCE</div>
-              <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.mid}</div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.mid}% Clarity</div>
-            </div>
+              {/* Mid */}
+              <div className="animate-enter-pop delay-200" style={{
+                background: 'var(--c-pink)',
+                border: '2px solid #0E0F14',
+                borderRadius: '16px',
+                padding: '16px',
+                boxShadow: '3px 3px 0px #0E0F14',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>MID PREFERENCE</div>
+                <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.mid}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.mid}% Clarity</div>
+              </div>
 
-            {/* Treble */}
-            <div style={{
-              background: '#E9D5FF',
-              border: '2px solid #0E0F14',
-              borderRadius: '16px',
-              padding: '16px',
-              boxShadow: '3px 3px 0px #0E0F14',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>TREBLE PREFERENCE</div>
-              <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.treble}</div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.treble}% Sparkle</div>
-            </div>
+              {/* Treble */}
+              <div className="animate-enter-pop delay-250" style={{
+                background: '#E9D5FF',
+                border: '2px solid #0E0F14',
+                borderRadius: '16px',
+                padding: '16px',
+                boxShadow: '3px 3px 0px #0E0F14',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>TREBLE PREFERENCE</div>
+                <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.treble}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.treble}% Sparkle</div>
+              </div>
 
-            {/* Stage */}
-            <div style={{
-              background: '#BAE6FD',
-              border: '2px solid #0E0F14',
-              borderRadius: '16px',
-              padding: '16px',
-              boxShadow: '3px 3px 0px #0E0F14',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>STAGE PREFERENCE</div>
-              <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.stage}</div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.stage}% Width</div>
-            </div>
+              {/* Stage */}
+              <div className="animate-enter-pop delay-300" style={{
+                background: '#BAE6FD',
+                border: '2px solid #0E0F14',
+                borderRadius: '16px',
+                padding: '16px',
+                boxShadow: '3px 3px 0px #0E0F14',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>STAGE PREFERENCE</div>
+                <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.stage}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.stage}% Width</div>
+              </div>
 
-            {/* Detail */}
-            <div style={{
-              background: '#BBF7D0',
-              border: '2px solid #0E0F14',
-              borderRadius: '16px',
-              padding: '16px',
-              boxShadow: '3px 3px 0px #0E0F14',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>DETAIL PREFERENCE</div>
-              <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.detail}</div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.detail}% Resolution</div>
+              {/* Detail */}
+              <div className="animate-enter-pop delay-350" style={{
+                background: '#BBF7D0',
+                border: '2px solid #0E0F14',
+                borderRadius: '16px',
+                padding: '16px',
+                boxShadow: '3px 3px 0px #0E0F14',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0E0F14' }}>DETAIL PREFERENCE</div>
+                <div style={{ fontWeight: 900, fontSize: '1.05rem', marginTop: '4px' }}>{labels.detail}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, marginTop: '4px' }}>{userVector.detail}% Resolution</div>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Action Buttons */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          flexWrap: 'wrap'
-        }}>
-          <button
-            onClick={onScrollToRecs}
-            className="btn-neo btn-neo-yellow"
-            style={{ padding: '16px 36px', fontSize: '1.05rem' }}
+        <ScrollReveal animation="animate-enter-scale-up" delay="delay-150">
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '16px',
+              flexWrap: 'wrap'
+            }}
           >
-            <Sparkles size={18} />
-            <span>Lihat Semua Rekomendasi IEM Tepat Untukmu</span>
-            <ArrowDown size={18} />
-          </button>
+            <button
+              onClick={onScrollToRecs}
+              className="btn-neo btn-neo-yellow"
+              style={{ padding: '16px 36px', fontSize: '1.05rem' }}
+            >
+              <Sparkles size={18} />
+              <span>Lihat Semua Rekomendasi IEM Tepat Untukmu</span>
+              <ArrowDown size={18} />
+            </button>
 
-          <button
-            onClick={onRetest}
-            className="btn-neo btn-neo-white"
-            style={{ padding: '16px 28px', fontSize: '1rem' }}
-          >
-            <RotateCcw size={16} />
-            <span>Ulangi Blind Test</span>
-          </button>
-        </div>
+            <button
+              onClick={onRetest}
+              className="btn-neo btn-neo-white"
+              style={{ padding: '16px 28px', fontSize: '1rem' }}
+            >
+              <RotateCcw size={16} />
+              <span>Ulangi Blind Test</span>
+            </button>
+          </div>
+        </ScrollReveal>
 
       </div>
     </section>

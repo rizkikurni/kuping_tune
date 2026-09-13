@@ -5,6 +5,7 @@ import { audioEngine } from '../audio/audioEngine';
 export default function AudioControls({ isPlaying, setIsPlaying, activeSample, setActiveSample }) {
   const [volume, setVolume] = useState(80);
   const [isMuted, setIsMuted] = useState(false);
+  const [isEngineLoading, setIsEngineLoading] = useState(audioEngine.isLoading);
 
   // Subscribe directly to audioEngine state to ensure UI is ALWAYS 100% in sync
   useEffect(() => {
@@ -15,30 +16,29 @@ export default function AudioControls({ isPlaying, setIsPlaying, activeSample, s
       if (state.activeSample) {
         setActiveSample(state.activeSample);
       }
+      if (typeof state.isLoading === 'boolean') {
+        setIsEngineLoading(state.isLoading);
+      }
     });
 
     return unsubscribe;
   }, [setIsPlaying, setActiveSample]);
 
-  const handleTogglePlay = async () => {
-    if (audioEngine.isPlaying) {
-      audioEngine.pause();
-    } else {
-      await audioEngine.play();
+  const handleTogglePlay = async (e) => {
+    if (e && e.currentTarget && typeof e.currentTarget.blur === 'function') {
+      e.currentTarget.blur();
     }
+    await audioEngine.togglePlay();
   };
 
-  const handleSwitchSample = async (target) => {
+  const handleSwitchSample = (target) => {
     audioEngine.switchSample(target);
     setActiveSample(target);
-    if (!audioEngine.isPlaying) {
-      await audioEngine.play();
-    }
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
 
       if (e.key === 'a' || e.key === 'A') {
         e.preventDefault();
@@ -48,13 +48,13 @@ export default function AudioControls({ isPlaying, setIsPlaying, activeSample, s
         handleSwitchSample('B');
       } else if (e.code === 'Space') {
         e.preventDefault();
-        handleTogglePlay();
+        audioEngine.togglePlay();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isPlaying, activeSample]);
+  }, []);
 
   const handleVolumeChange = (e) => {
     const val = parseInt(e.target.value, 10);
@@ -202,6 +202,8 @@ export default function AudioControls({ isPlaying, setIsPlaying, activeSample, s
             id="audio-play-toggle"
             type="button"
             onClick={handleTogglePlay}
+            onKeyDown={(e) => { if (e.code === 'Space') e.preventDefault(); }}
+            disabled={isEngineLoading}
             style={{
               width: '48px',
               height: '48px',
@@ -213,7 +215,8 @@ export default function AudioControls({ isPlaying, setIsPlaying, activeSample, s
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              cursor: 'pointer',
+              cursor: isEngineLoading ? 'wait' : 'pointer',
+              opacity: isEngineLoading ? 0.6 : 1,
               transition: 'all 0.15s ease'
             }}
             title={isPlaying ? 'Pause Musik (||)' : 'Putar Musik (▶)'}
@@ -229,7 +232,7 @@ export default function AudioControls({ isPlaying, setIsPlaying, activeSample, s
 
           <div>
             <div style={{ fontSize: '0.92rem', fontWeight: 900, color: '#0E0F14' }}>
-              {isPlaying ? 'Sedang Diputar (|| Pause)' : 'Dijeda (▶ Putar)'}
+              {isEngineLoading ? 'Memproses Audio...' : isPlaying ? 'Sedang Diputar (|| Pause)' : 'Dijeda (▶ Putar)'}
             </div>
             <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--c-text-muted)' }}>
               16-Bar Multi-Stem Loop • Tekan Spasi

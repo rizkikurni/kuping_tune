@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import FeaturedShowcase from './components/FeaturedShowcase';
@@ -6,11 +6,30 @@ import BlindArena from './components/BlindArena';
 import ResultProfile from './components/ResultProfile';
 import RecommendationList from './components/RecommendationList';
 import { calculateProfileAndRecommendations } from './utils/scoringEngine';
+import { audioEngine } from './audio/audioEngine';
+import KupingTuneLogo from './components/KupingTuneLogo';
 import { Headphones } from 'lucide-react';
 
 function App() {
   const [activeView, setActiveView] = useState('hero'); // 'hero' | 'test' | 'result' | 'catalog'
   const [resultData, setResultData] = useState(null);
+
+  // Background audio preloading during idle time on initial app load
+  useEffect(() => {
+    const triggerPreload = () => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          audioEngine.preload();
+        }, { timeout: 2500 });
+      } else {
+        setTimeout(() => {
+          audioEngine.preload();
+        }, 1200);
+      }
+    };
+
+    triggerPreload();
+  }, []);
 
   const defaultCatalogData = calculateProfileAndRecommendations({
     1: 'indifferent',
@@ -56,7 +75,7 @@ function App() {
       <main style={{ flex: 1 }}>
         {/* 2. Hero Landing Page + Hottest Show Showcase */}
         {activeView === 'hero' && (
-          <>
+          <div key="hero" className="animate-page-enter">
             <HeroSection 
               onStartTest={handleStartTest}
               onOpenCatalog={handleOpenCatalog}
@@ -64,20 +83,22 @@ function App() {
             <FeaturedShowcase 
               onStartTest={handleStartTest}
             />
-          </>
+          </div>
         )}
 
         {/* 3. Interactive Blind Arena (5-Round Test) */}
         {activeView === 'test' && (
-          <BlindArena 
-            onCompleteTest={handleCompleteTest}
-            onExit={() => setActiveView('hero')}
-          />
+          <div key="test" className="animate-page-enter">
+            <BlindArena 
+              onCompleteTest={handleCompleteTest}
+              onExit={() => setActiveView('hero')}
+            />
+          </div>
         )}
 
         {/* 4. Test Results & Persona Profile */}
         {activeView === 'result' && resultData && (
-          <>
+          <div key="result" className="animate-page-enter">
             <ResultProfile 
               resultData={resultData}
               onRetest={() => handleStartTest('test')}
@@ -87,24 +108,14 @@ function App() {
               recommendations={resultData.recommendations}
               userVector={resultData.userVector}
             />
-          </>
+          </div>
         )}
 
         {/* 5. Standalone Catalog View */}
         {activeView === 'catalog' && (
-          <div style={{ paddingTop: '30px' }}>
+          <div key="catalog" className="animate-page-enter" style={{ paddingTop: '30px' }}>
             <div className="container" style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <button
-                onClick={() => setActiveView('hero')}
-                className="btn-neo btn-neo-white"
-                style={{
-                  padding: '8px 20px',
-                  fontSize: '0.85rem',
-                  marginBottom: '20px'
-                }}
-              >
-                ← Kembali ke Beranda
-              </button>
+
 
               <div style={{
                 background: 'var(--c-yellow)',
@@ -163,26 +174,10 @@ function App() {
           flexWrap: 'wrap',
           gap: '20px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '8px',
-              background: 'var(--c-orange)',
-              border: '2px solid #FFFFFF',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <Headphones size={18} color="#FFFFFF" />
-            </div>
-            <span style={{ fontWeight: 900, fontSize: '1.25rem' }}>
-              PodCraze<span style={{ color: 'var(--c-orange)' }}>.</span>
-            </span>
-          </div>
+          <KupingTuneLogo showText={true} size={36} textColor="#FFFFFF" onClick={() => handleStartTest('hero')} />
 
           <div style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: 600 }}>
-            Audiophile Blind Test Lab • Web Audio API 100% Client-Side DSP • Desain Neo-Brutalism Pop
+            KupingTune Lab • Web Audio API 100% Client-Side DSP • Desain Neo-Brutalism Pop
           </div>
         </div>
       </footer>

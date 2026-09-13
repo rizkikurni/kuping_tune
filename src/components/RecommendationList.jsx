@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ExternalLink, Check, ShoppingBag, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { ExternalLink, Check, ShoppingBag, SlidersHorizontal, Target, Zap } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 export default function RecommendationList({ recommendations, userVector }) {
   const [budgetFilter, setBudgetFilter] = useState('all');
@@ -26,10 +27,12 @@ export default function RecommendationList({ recommendations, userVector }) {
     <section id="recommendations-section" style={{ padding: '40px 0 100px', background: 'var(--c-cream)' }}>
       <div className="container">
         
-        {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        {/* Section Header with ScrollReveal */}
+        <ScrollReveal animation="animate-enter-fade-down" style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{
-            display: 'inline-block',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
             background: 'var(--c-yellow)',
             border: '2px solid #0E0F14',
             borderRadius: '999px',
@@ -39,7 +42,8 @@ export default function RecommendationList({ recommendations, userVector }) {
             boxShadow: '3px 3px 0px #0E0F14',
             marginBottom: '16px'
           }}>
-            🎯 REKOMENDASI IEM KERE HORE
+            <Target size={16} color="#0E0F14" strokeWidth={2.6} />
+            <span>REKOMENDASI IEM KERE HORE</span>
           </div>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, marginBottom: '12px' }}>
             IEM Paling Cocok Untuk Telingamu
@@ -47,22 +51,23 @@ export default function RecommendationList({ recommendations, userVector }) {
           <p style={{ color: 'var(--c-text-muted)', fontSize: '1.02rem', maxWidth: '620px', margin: '0 auto', fontWeight: 600 }}>
             Dipasangkan menggunakan kalkulasi matematis *Euclidean Distance* antara respons frekuensi fisik earphone dengan hasil tes kupingmu.
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* Filter & Sort Bar */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '16px',
-          background: '#FFFFFF',
-          border: '2.5px solid #0E0F14',
-          borderRadius: '20px',
-          boxShadow: '4px 4px 0px #0E0F14',
-          padding: '16px 24px',
-          marginBottom: '36px'
-        }}>
+        {/* Filter & Sort Bar with ScrollReveal */}
+        <ScrollReveal animation="animate-enter-fade-up" delay="delay-100">
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px',
+            background: '#FFFFFF',
+            border: '2.5px solid #0E0F14',
+            borderRadius: '20px',
+            boxShadow: '4px 4px 0px #0E0F14',
+            padding: '16px 24px',
+            marginBottom: '36px'
+          }}>
           {/* Budget Filter Buttons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '0.85rem', fontWeight: 900, color: '#0E0F14', marginRight: '4px' }}>
@@ -123,6 +128,7 @@ export default function RecommendationList({ recommendations, userVector }) {
             </select>
           </div>
         </div>
+        </ScrollReveal>
 
         {/* Cards Grid */}
         <div style={{
@@ -132,23 +138,31 @@ export default function RecommendationList({ recommendations, userVector }) {
         }}>
           {filtered.map((iem, index) => {
             const isTopChoice = index === 0 && sortBy === 'match';
+            const delayClasses = ['delay-100', 'delay-150', 'delay-200', 'delay-250', 'delay-300'];
+            const delayClass = delayClasses[index % delayClasses.length];
 
             return (
-              <div
+              <ScrollReveal
                 key={iem.id}
-                style={{
-                  background: isTopChoice ? 'var(--c-yellow)' : '#FFFFFF',
-                  border: '3px solid #0E0F14',
-                  borderRadius: '24px',
-                  boxShadow: isTopChoice ? '8px 8px 0px #0E0F14' : '5px 5px 0px #0E0F14',
-                  padding: '28px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  position: 'relative',
-                  transition: 'all 0.15s ease'
-                }}
+                animation="animate-enter-scale-up"
+                delay={delayClass}
+                style={{ display: 'flex', flexDirection: 'column' }}
               >
+                <div
+                  style={{
+                    background: isTopChoice ? 'var(--c-yellow)' : '#FFFFFF',
+                    border: '3px solid #0E0F14',
+                    borderRadius: '24px',
+                    boxShadow: isTopChoice ? '8px 8px 0px #0E0F14' : '5px 5px 0px #0E0F14',
+                    padding: '28px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                    height: '100%',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
                 <div>
                   {/* Top Bar: Brand, Match Score Badge */}
                   <div style={{
@@ -229,9 +243,13 @@ export default function RecommendationList({ recommendations, userVector }) {
                       fontWeight: 900,
                       color: '#FF7728',
                       marginBottom: '4px',
-                      textTransform: 'uppercase'
+                      textTransform: 'uppercase',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
                     }}>
-                      ⚡ Kenapa Pas Denganmu:
+                      <Zap size={14} color="#FF7728" strokeWidth={2.8} />
+                      <span>Kenapa Pas Denganmu:</span>
                     </div>
                     <p style={{ fontSize: '0.85rem', color: '#1F2937', fontWeight: 600, lineHeight: 1.5 }}>
                       {iem.recommendationReason}
@@ -271,11 +289,11 @@ export default function RecommendationList({ recommendations, userVector }) {
                   <span>Cari di Tokopedia / Olshop</span>
                   <ExternalLink size={14} />
                 </a>
-
               </div>
-            );
-          })}
-        </div>
+            </ScrollReveal>
+          );
+        })}
+      </div>
 
       </div>
     </section>

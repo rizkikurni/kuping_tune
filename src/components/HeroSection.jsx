@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, Repeat, SkipBack, SkipForward, Shuffle } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 export default function HeroSection({ onStartTest, onOpenCatalog }) {
   return (
@@ -22,34 +23,43 @@ export default function HeroSection({ onStartTest, onOpenCatalog }) {
           
           {/* Left Column: Headline & Action Buttons */}
           <div style={{ maxWidth: '540px' }}>
-            <h1 style={{
-              fontSize: 'clamp(2.6rem, 5.2vw, 4.2rem)',
-              color: '#FFFFFF',
-              fontWeight: 800,
-              lineHeight: 1.08,
-              letterSpacing: '-0.035em',
-              marginBottom: '24px'
-            }}>
+            <h1 
+              className="animate-enter-fade-down"
+              style={{
+                fontSize: 'clamp(2.6rem, 5.2vw, 4.2rem)',
+                color: '#FFFFFF',
+                fontWeight: 800,
+                lineHeight: 1.08,
+                letterSpacing: '-0.035em',
+                marginBottom: '24px'
+              }}
+            >
               Tune In to Your True Hearing Profile
             </h1>
 
-            <p style={{
-              fontSize: '1.12rem',
-              color: 'rgba(255, 255, 255, 0.9)',
-              lineHeight: 1.6,
-              marginBottom: '36px',
-              fontWeight: 500
-            }}>
+            <p 
+              className="animate-enter-fade-up delay-100"
+              style={{
+                fontSize: '1.12rem',
+                color: 'rgba(255, 255, 255, 0.9)',
+                lineHeight: 1.6,
+                marginBottom: '36px',
+                fontWeight: 500
+              }}
+            >
               Uji preferensi karakter bass, vokal, dan treble secara objektif melalui <strong>A/B Blind Test</strong> interaktif tanpa pengaruh merek atau harga.
             </p>
 
             {/* Two Buttons matching screenshot: Yellow Pill + White How It Works Pill */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              flexWrap: 'wrap'
-            }}>
+            <div 
+              className="animate-enter-scale-up delay-200"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                flexWrap: 'wrap'
+              }}
+            >
               <button
                 onClick={() => onStartTest('test')}
                 className="btn-neo btn-neo-yellow"
@@ -83,23 +93,26 @@ export default function HeroSection({ onStartTest, onOpenCatalog }) {
           <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
             
             {/* The Main Yellow Card */}
-            <div style={{
-              background: 'var(--c-yellow)',
-              border: '3px solid #0E0F14',
-              borderRadius: '32px',
-              boxShadow: '8px 8px 0px #0E0F14',
-              width: '100%',
-              maxWidth: '440px',
-              height: '420px',
-              position: 'relative',
-              overflow: 'visible',
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'center'
-            }}>
+            <div 
+              className="animate-enter-scale-up delay-150"
+              style={{
+                background: 'var(--c-yellow)',
+                border: '3px solid #0E0F14',
+                borderRadius: '32px',
+                boxShadow: '8px 8px 0px #0E0F14',
+                width: '100%',
+                maxWidth: '440px',
+                height: '420px',
+                position: 'relative',
+                overflow: 'visible',
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+              }}
+            >
 
               {/* Floating Orange Starburst Badge with Waveform (From Screenshot) */}
-              <div style={{
+              <div className="animate-float animate-enter-pop delay-300" style={{
                 position: 'absolute',
                 top: '-18px',
                 left: '-18px',
@@ -115,13 +128,13 @@ export default function HeroSection({ onStartTest, onOpenCatalog }) {
                 transform: 'rotate(-8deg)',
                 zIndex: 10
               }}>
-                {/* Simulated Waveform Icon in Starburst */}
+                {/* Active Animated Waveform in Starburst */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-                  <div style={{ width: '4px', height: '14px', background: '#FFFFFF', borderRadius: '2px' }} />
-                  <div style={{ width: '4px', height: '24px', background: '#FFFFFF', borderRadius: '2px' }} />
-                  <div style={{ width: '4px', height: '18px', background: '#FFFFFF', borderRadius: '2px' }} />
-                  <div style={{ width: '4px', height: '28px', background: '#FFFFFF', borderRadius: '2px' }} />
-                  <div style={{ width: '4px', height: '16px', background: '#FFFFFF', borderRadius: '2px' }} />
+                  <div className="neo-eq-bar" style={{ width: '4px', height: '14px', background: '#FFFFFF', border: 'none', animationDuration: '1.2s' }} />
+                  <div className="neo-eq-bar" style={{ width: '4px', height: '24px', background: '#FFDF34', border: 'none', animationDuration: '1.5s' }} />
+                  <div className="neo-eq-bar" style={{ width: '4px', height: '18px', background: '#FFFFFF', border: 'none', animationDuration: '1.1s' }} />
+                  <div className="neo-eq-bar" style={{ width: '4px', height: '28px', background: '#FFAEF0', border: 'none', animationDuration: '1.4s' }} />
+                  <div className="neo-eq-bar" style={{ width: '4px', height: '16px', background: '#FFFFFF', border: 'none', animationDuration: '1.6s' }} />
                 </div>
               </div>
 
@@ -169,7 +182,7 @@ export default function HeroSection({ onStartTest, onOpenCatalog }) {
               </div>
 
               {/* Floating Audio Player Card (From Screenshot) */}
-              <div style={{
+              <div className="animate-float-alt animate-enter-fade-up delay-250" style={{
                 position: 'absolute',
                 bottom: '-28px',
                 width: '92%',
@@ -267,96 +280,100 @@ export default function HeroSection({ onStartTest, onOpenCatalog }) {
 
         </div>
 
-        {/* The Pink Stats Box (Directly from Screenshot) */}
-        <div style={{
-          background: 'var(--c-pink)',
-          border: '2.5px solid #0E0F14',
-          borderRadius: '24px',
-          boxShadow: '6px 6px 0px #0E0F14',
-          padding: '24px 32px',
-          color: '#0E0F14',
-          marginTop: '60px'
-        }}>
+        {/* The Pink Stats Box (Directly from Screenshot - Reveals on Scroll) */}
+        <ScrollReveal 
+          animation="animate-enter-fade-up"
+          style={{ marginTop: '60px' }}
+        >
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '24px',
-            alignItems: 'center',
-            textAlign: 'center'
+            background: 'var(--c-pink)',
+            border: '2.5px solid #0E0F14',
+            borderRadius: '24px',
+            boxShadow: '6px 6px 0px #0E0F14',
+            padding: '24px 32px',
+            color: '#0E0F14'
           }}>
-            
-            {/* Stat 1 */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-              {/* White dual pill speaker icon from screenshot */}
-              <div style={{
-                width: '44px',
-                height: '32px',
-                background: '#FFFFFF',
-                border: '2px solid #0E0F14',
-                borderRadius: '999px',
-                boxShadow: '2px 2px 0px #0E0F14',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '3px'
-              }}>
-                <div style={{ width: '4px', height: '16px', background: '#0E0F14', borderRadius: '2px' }} />
-                <div style={{ width: '4px', height: '10px', background: '#0E0F14', borderRadius: '2px' }} />
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gap: '24px',
+              alignItems: 'center',
+              textAlign: 'center'
+            }}>
+              
+              {/* Stat 1 */}
+              <div className="animate-enter-pop delay-100" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                {/* White dual pill speaker icon from screenshot */}
+                <div style={{
+                  width: '44px',
+                  height: '32px',
+                  background: '#FFFFFF',
+                  border: '2px solid #0E0F14',
+                  borderRadius: '999px',
+                  boxShadow: '2px 2px 0px #0E0F14',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '3px'
+                }}>
+                  <div style={{ width: '4px', height: '16px', background: '#0E0F14', borderRadius: '2px' }} />
+                  <div style={{ width: '4px', height: '10px', background: '#0E0F14', borderRadius: '2px' }} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 900, lineHeight: 1 }}>5 Ronde</div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'rgba(14, 15, 20, 0.75)' }}>A/B Blind Test Akustik</div>
+                </div>
               </div>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '1.75rem', fontWeight: 900, lineHeight: 1 }}>5 Ronde</div>
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'rgba(14, 15, 20, 0.75)' }}>A/B Blind Test Akustik</div>
-              </div>
-            </div>
 
-            {/* Stat 2 */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-              <div style={{
-                width: '44px',
-                height: '32px',
-                background: '#FFFFFF',
-                border: '2px solid #0E0F14',
-                borderRadius: '999px',
-                boxShadow: '2px 2px 0px #0E0F14',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '3px'
-              }}>
-                <div style={{ width: '4px', height: '12px', background: '#0E0F14', borderRadius: '2px' }} />
-                <div style={{ width: '4px', height: '18px', background: '#0E0F14', borderRadius: '2px' }} />
+              {/* Stat 2 */}
+              <div className="animate-enter-pop delay-200" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                <div style={{
+                  width: '44px',
+                  height: '32px',
+                  background: '#FFFFFF',
+                  border: '2px solid #0E0F14',
+                  borderRadius: '999px',
+                  boxShadow: '2px 2px 0px #0E0F14',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '3px'
+                }}>
+                  <div style={{ width: '4px', height: '12px', background: '#0E0F14', borderRadius: '2px' }} />
+                  <div style={{ width: '4px', height: '18px', background: '#0E0F14', borderRadius: '2px' }} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 900, lineHeight: 1 }}>100% Netral</div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'rgba(14, 15, 20, 0.75)' }}>Equal Loudness DSP</div>
+                </div>
               </div>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '1.75rem', fontWeight: 900, lineHeight: 1 }}>100% Netral</div>
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'rgba(14, 15, 20, 0.75)' }}>Equal Loudness DSP</div>
-              </div>
-            </div>
 
-            {/* Stat 3 */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-              <div style={{
-                width: '44px',
-                height: '32px',
-                background: '#FFFFFF',
-                border: '2px solid #0E0F14',
-                borderRadius: '999px',
-                boxShadow: '2px 2px 0px #0E0F14',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '3px'
-              }}>
-                <div style={{ width: '4px', height: '18px', background: '#0E0F14', borderRadius: '2px' }} />
-                <div style={{ width: '4px', height: '14px', background: '#0E0F14', borderRadius: '2px' }} />
+              {/* Stat 3 */}
+              <div className="animate-enter-pop delay-300" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                <div style={{
+                  width: '44px',
+                  height: '32px',
+                  background: '#FFFFFF',
+                  border: '2px solid #0E0F14',
+                  borderRadius: '999px',
+                  boxShadow: '2px 2px 0px #0E0F14',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '3px'
+                }}>
+                  <div style={{ width: '4px', height: '18px', background: '#0E0F14', borderRadius: '2px' }} />
+                  <div style={{ width: '4px', height: '14px', background: '#0E0F14', borderRadius: '2px' }} />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 900, lineHeight: 1 }}>8+ IEM Pilihan</div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'rgba(14, 15, 20, 0.75)' }}>Katalog Budget Juara</div>
+                </div>
               </div>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: '1.75rem', fontWeight: 900, lineHeight: 1 }}>8+ IEM Pilihan</div>
-                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'rgba(14, 15, 20, 0.75)' }}>Katalog Budget Juara</div>
-              </div>
-            </div>
 
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
       </div>
     </section>

@@ -1,8 +1,8 @@
-# 🎧 Audiophile Blind Test & IEM Recommender
+# 🎧 KupingTune — Blind Test & IEM Recommender
 
-Aplikasi web interaktif Single Page Application (SPA) berbasis **Vite + React** yang memungkinkan pengguna melakukan **A/B Blind Preference Test** secara objektif, menyusun **Personal Sound Profile** (Radar Chart & Persona Badge), dan merekomendasikan **IEM Budget Pemula (< Rp 1 Juta)** yang paling sesuai dengan selera telinga pengguna.
+Aplikasi web interaktif Single Page Application (SPA) berbasis **Vite + React** yang memungkinkan pengguna melakukan **A/B Blind Preference Test** secara objektif, menyusun **Personal Sound Profile** (Radar Chart & Persona Badge), dan merekomendasikan **IEM Budget Pemula (< Rp 1 Juta)** yang paling sesuai dengan selera kuping pengguna.
 
-Desain antarmuka mengadopsi estetika **[Podcraze Audio Podcast Landing Page](https://dribbble.com/shots/23852253-Podcraze-Audio-Podcast-Landing-Page)** (Peterdraw Studio).
+Desain antarmuka mengadopsi estetika **Neo-Brutalism Pop** ceria dengan palet ungu, kuning, dan pink berenergi tinggi.
 
 ---
 

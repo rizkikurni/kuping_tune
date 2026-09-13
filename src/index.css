@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PODCRAZE NEO-BRUTALISM POP DESIGN SYSTEM
+   KUPINGTUNE NEO-BRUTALISM POP DESIGN SYSTEM
    Exact recreation from user screenshot:
    - Vivid Royal Purple (#6846FD / #6A48FF)
    - Punchy Pastel Yellow (#FFDF34)
@@ -217,12 +217,293 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
   }
 }
 
 .animate-float {
-  animation: floatGentle 3s ease-in-out infinite;
+  animation: floatGentle 4.8s ease-in-out infinite;
+}
+
+/* Neo-Brutalism Equalizer Loading Animation */
+@keyframes neoEqBounce {
+  0% {
+    height: 10px;
+    transform: scaleY(0.4);
+  }
+  50% {
+    height: 44px;
+    transform: scaleY(1.15);
+  }
+  100% {
+    height: 16px;
+    transform: scaleY(0.6);
+  }
+}
+
+@keyframes neoPulseGlow {
+  0%, 100% {
+    box-shadow: 4px 4px 0px #0E0F14;
+  }
+  50% {
+    box-shadow: 7px 7px 0px #0E0F14;
+  }
+}
+
+@keyframes neoShimmerBar {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.neo-eq-bar {
+  width: 9px;
+  border-radius: 4px;
+  border: 2px solid #0E0F14;
+  animation: neoEqBounce 1.4s ease-in-out infinite alternate;
+}
+
+/* Navbar Active Pill & Animation */
+@keyframes popActive {
+  0% { transform: scale(0.92); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.nav-pill-active {
+  background: var(--c-yellow) !important;
+  color: #0E0F14 !important;
+  border: 2px solid #0E0F14 !important;
+  box-shadow: 2px 2px 0px #0E0F14 !important;
+  border-radius: var(--radius-pill);
+  font-weight: 900 !important;
+  animation: popActive 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+.live-pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 1.5px solid #0E0F14;
+  animation: livePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes floatGentleAlt {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.8deg);
+  }
+}
+
+.animate-float-alt {
+  animation: floatGentleAlt 5.2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   ENTRANCE ANIMATIONS (ANIMASI MASUK - TEMPO LEBIH LAMBAT & HALUS)
+   ========================================================================== */
+
+/* 1. Page Transition Container */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-page-enter {
+  animation: pageEnter 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 2. Fade Up Entrance */
+@keyframes enterFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter-fade-up {
+  animation: enterFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 3. Fade Down Entrance */
+@keyframes enterFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter-fade-down {
+  animation: enterFadeDown 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 4. Scale Up Entrance with Smooth Organic Feel */
+@keyframes enterScaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.91) translateY(18px);
+  }
+  70% {
+    transform: scale(1.015) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-enter-scale-up {
+  animation: enterScaleUp 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 5. Pop In Entrance (for badges, pills, stickers) */
+@keyframes enterPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) rotate(-9deg);
+  }
+  65% {
+    transform: scale(1.08) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-enter-pop {
+  animation: enterPopIn 0.85s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+}
+
+/* 6. Slide In Left / Right */
+@keyframes enterSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-enter-slide-left {
+  animation: enterSlideLeft 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes enterSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-enter-slide-right {
+  animation: enterSlideRight 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 7. Carousel Card Switch Entrance */
+@keyframes carouselSwitch {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-carousel-switch {
+  animation: carouselSwitch 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Staggered Delay Utilities (Dilambatkan agar transisi mengalir bertingkat) */
+.delay-50 {
+  animation-delay: 100ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-100 {
+  animation-delay: 200ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-150 {
+  animation-delay: 320ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-200 {
+  animation-delay: 450ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-250 {
+  animation-delay: 580ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-300 {
+  animation-delay: 700ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-350 {
+  animation-delay: 820ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-400 {
+  animation-delay: 940ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-450 {
+  animation-delay: 1060ms !important;
+  animation-fill-mode: backwards !important;
+}
+.delay-500 {
+  animation-delay: 1180ms !important;
+  animation-fill-mode: backwards !important;
+}
+
+/* Scroll-triggered reveal state */
+.scroll-reveal-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* Responsive adjustment */
@@ -231,3 +512,5 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 16px;
   }
 }
+
+
