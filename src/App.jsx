@@ -177,7 +177,7 @@ function App() {
           <KupingTuneLogo showText={true} size={36} textColor="#FFFFFF" onClick={() => handleStartTest('hero')} />
 
           <div style={{ fontSize: '0.85rem', color: '#9CA3AF', fontWeight: 600 }}>
-            KupingTune Lab • Web Audio API 100% Client-Side DSP • Desain Neo-Brutalism Pop
+            RizkiKurni@2026
           </div>
         </div>
       </footer>
